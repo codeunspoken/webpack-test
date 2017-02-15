@@ -1,0 +1,70 @@
+inside project folder run "npm install" this will create package.json
+npm view webpack --json to list all versions
+"npm install webpack@verison! --save" to install localy
+on windows run:
+node node_modules\webpack\bin\webpack.js index.js bundle.js
+
+include in package.json :
+"scripts": {
+      "build": "webpack index.js bundle.js"
+  },
+  
+run "npm run build" to build it.
+
+install rimraf : os indepenedent file delete
+npm install rimraf --save-dev
+
+"scripts": {
+  "build": "webpack index.js bundle.js"
+},
+
+to rebuild when a src file changes, add the "--watch" flag to build script:
+"scripts": {
+"build": "rimraf dist && webpack src/index.js dist/bundle.js --watch"
+},
+
+------------------------------------------------------
+WEBPACK.CONFIG.JS file to have configuration seperated
+------------------------------------------------------
+
+var path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+    output: {
+        path: path.join(__dirname, "dist"),
+        publicPath: "/dist/",
+        filename: "bundle.js"
+    }
+};
+
+package.json:
+"scripts": {
+"build": "rimraf dist && webpack --watch"
+},
+
+--------------------------------------------------------
+live hot reload - HMR
+--------------------------------------------------------
+install devserver:
+npm install webpack-dev-server@2.1.0 --save-dev
+
+what hot reload does:
+    1.rebuild
+    2.refresh browser or refresh only bundle.js in browser
+
+    to activate it:
+
+    package.json:
+    "scripts": {
+          "build": "rimraf dist && webpack",
+          "dev": "webpack-dev-server"
+      },
+
+    to start web server: "npm run dev"
+
+what HMR does:
+    1.rebuild chunk
+    2.replace chunk in browser
+
+
